@@ -1,9 +1,9 @@
 /**
  * <pride-badge>: floramaxwell.de's "Stronger together." badge for any website
  * (spec: floramaxwell.de docs/superpowers/specs/2026-11-02-pride-badge-package-design.md).
- * Attributes: texts, lang, effects="off", trail="off", touch-trail="off", shadow="off".
+ * Attributes: texts, lang, effects="off", trail="off", trail-reach="60", touch-trail="off", shadow="off".
  */
-import { NEAR, acquireLayer, burst, plop, releaseLayer, trail } from './effects';
+import { NEAR, acquireLayer, parseReach, burst, plop, releaseLayer, trail } from './effects';
 import { flag } from './flag';
 import { LABELS, TEXTS, nextKey, parseTexts, resolveLang, type Key, type Lang } from './messages';
 import { CSS } from './styles';
@@ -32,7 +32,7 @@ function adoptStyles(root: ShadowRoot): void {
 const Base = (typeof HTMLElement === 'undefined' ? class {} : HTMLElement) as typeof HTMLElement;
 
 export class PrideBadge extends Base {
-  static observedAttributes = ['texts', 'lang', 'effects', 'trail', 'touch-trail', 'shadow'];
+  static observedAttributes = ['texts', 'lang', 'effects', 'trail', 'trail-reach', 'touch-trail', 'shadow'];
 
   #root: ShadowRoot;
   #button: HTMLButtonElement;
@@ -44,6 +44,7 @@ export class PrideBadge extends Base {
   #live: HTMLElement;
   #key: Key = 'stronger-together';
   #last = 0;
+  #reach = NEAR;
   #held = false;
 
   constructor() {
@@ -136,11 +137,12 @@ export class PrideBadge extends Base {
     this.#width = this.#button.animate([{ width: `${from}px` }, { width: `${to}px` }], { duration: ROLL.width, easing: ROLL.ease });
   }
 
-  /** The mouse leaves the trail within NEAR px of the badge. */
+  /** The mouse leaves the trail within `trail-reach` px of the badge (NEAR by default). */
   #near = (e: PointerEvent): void => {
     if (e.pointerType !== 'mouse' || !FINE?.matches || !this.#moving || this.getAttribute('trail') === 'off' || e.timeStamp - this.#last < 16) return;
     const r = this.#button.getBoundingClientRect();
-    if (e.clientX < r.left - NEAR || e.clientX > r.right + NEAR || e.clientY < r.top - NEAR || e.clientY > r.bottom + NEAR) return;
+    const d = this.#reach;
+    if (e.clientX < r.left - d || e.clientX > r.right + d || e.clientY < r.top - d || e.clientY > r.bottom + d) return;
     this.#last = e.timeStamp;
     trail(e.clientX, e.clientY);
   };
@@ -159,6 +161,7 @@ export class PrideBadge extends Base {
   }
 
   attributeChangedCallback(name: string): void {
+    if (name === 'trail-reach') this.#reach = parseReach(this.getAttribute('trail-reach'));
     if (name === 'texts' || name === 'lang' || name === 'effects') this.#render(name === 'texts');
   }
 

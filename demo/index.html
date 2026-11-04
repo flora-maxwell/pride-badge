@@ -17,6 +17,7 @@
   .hero { display: flex; justify-content: center; padding: 56px 16px; margin: 32px 0 0; border-radius: 20px; background: #fff; border: 1px solid var(--line); }
   .stage { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; padding: 28px 24px; margin: 16px 0 12px; border-radius: 16px; background: #fff; border: 1px solid var(--line); }
   /* Quieter: far apart, so the 60px mouse trail of one badge never reaches the next. */
+  .stage.roomy { padding: 120px 24px; justify-content: center; }
   .stage.spread { flex-direction: column; align-items: flex-start; gap: 0; padding: 0 24px; }
   .stage.spread .item { padding: 48px 0; width: 100%; }
   .stage.spread .item + .item { border-top: 1px solid var(--line); }
@@ -27,6 +28,12 @@
     --pride-badge-contour: 0 0 0 1px rgb(255 255 255 / .16);
     --pride-badge-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 4px 14px rgb(0 0 0 / .35);
     --pride-badge-focus-ring: 2px solid #fafafa; --pride-badge-focus-glow: 0 0 0 5px #0f0f11;
+  }
+  /* After .stage.dark, which sets its own halo. */
+  .stage.glow pride-badge {
+    --pride-badge-focus-ring: 1.5px solid rgb(255 255 255 / .95);
+    --pride-badge-focus-offset: 3px;
+    --pride-badge-focus-glow: 0 0 0 6px rgb(255 255 255 / .1), 0 0 22px 4px rgb(255 255 255 / .28);
   }
   pre { margin: 0 0 8px; padding: 16px; overflow-x: auto; border-radius: 12px; background: #18181b; color: #f4f4f5; font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; }
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
@@ -72,12 +79,33 @@
   --pride-badge-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 4px 14px rgb(0 0 0 / .35);
 }</code></pre>
 
+  <h2>Focus</h2>
+  <p>Keyboard users see a ring around the badge. Press <kbd>Tab</kbd> until a badge below is focused. The badge is shielded from your page's CSS, so your site-wide <code>:focus-visible</code> style doesn't reach it: copy your values into three custom properties.</p>
+  <div class="stage"><pride-badge></pride-badge></div>
+  <pre><code>pride-badge {
+  --pride-badge-focus-ring: 2px solid #18181b;   /* your outline */
+  --pride-badge-focus-offset: 2px;               /* your outline-offset */
+  --pride-badge-focus-glow: 0 0 0 5px #fafafa;   /* a halo, or 0 0 transparent for none */
+}</code></pre>
+  <p>A soft glow, as on <a href="https://floramaxwell.de">floramaxwell.de</a>, made for dark pages. To change its colour, swap the <code>255 255 255</code> in all three lines.</p>
+  <div class="stage dark glow"><pride-badge></pride-badge></div>
+  <pre><code>pride-badge {
+  --pride-badge-focus-ring: 1.5px solid rgb(255 255 255 / .95);
+  --pride-badge-focus-offset: 3px;
+  --pride-badge-focus-glow: 0 0 0 6px rgb(255 255 255 / .1), 0 0 22px 4px rgb(255 255 255 / .28);
+}</code></pre>
+
+  <h2>Trail reach</h2>
+  <p>The mouse leaves its rainbow trail within 60px of the badge. <code>trail-reach</code> sets that distance in pixels, from 0 (only on the badge) to 300. This one starts at 150px.</p>
+  <div class="stage roomy"><pride-badge trail-reach="150"></pride-badge></div>
+  <pre><code>&lt;pride-badge trail-reach="150"&gt;&lt;/pride-badge&gt;</code></pre>
+
   <h2>Quieter</h2>
-  <p><code>shadow="off"</code> drops the shadow, <code>trail="off"</code> leaves no rainbow trail behind the mouse or a finger, <code>touch-trail="off"</code> keeps it for the mouse only and lets the page scroll when a finger starts on the badge, <code>effects="off"</code> makes it a calm button.</p>
+  <p><code>shadow="off"</code> drops the shadow, <code>trail="off"</code> leaves no rainbow trail behind the mouse or a finger, <code>touch-trail="off"</code> is for phones and tablets: a finger on the badge leaves no trail and the page scrolls as usual, while the mouse trail stays. <code>effects="off"</code> makes it a calm button.</p>
   <div class="stage spread">
     <div class="item"><code class="label">shadow="off"</code><pride-badge shadow="off"></pride-badge></div>
     <div class="item"><code class="label">trail="off"</code><pride-badge trail="off"></pride-badge></div>
-    <div class="item"><code class="label">touch-trail="off"</code><pride-badge touch-trail="off"></pride-badge></div>
+    <div class="item"><span class="label"><code>touch-trail="off"</code> · phones and tablets</span><pride-badge touch-trail="off"></pride-badge></div>
     <div class="item"><code class="label">effects="off"</code><pride-badge effects="off"></pride-badge></div>
   </div>
   <pre><code>&lt;pride-badge shadow="off"&gt;&lt;/pride-badge&gt;

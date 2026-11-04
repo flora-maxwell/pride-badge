@@ -71,6 +71,17 @@ test('the mouse leaves a rainbow trail within 60px, not further away', async ({ 
   await expect(page.locator(TRAIL)).toHaveCount(0, { timeout: 2000 });
 });
 
+test('trail-reach="120": the mouse trail starts 120px away instead of 60', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'mouse');
+  const b = await box(page, 'reach');
+  const y = b.y + b.height / 2;
+  await page.mouse.move(b.x + b.width + 200, y);
+  await page.mouse.move(b.x + b.width + 140, y, { steps: 3 });
+  expect(await page.locator(TRAIL).count()).toBe(0);
+  await page.mouse.move(b.x + b.width + 100, y, { steps: 1 });
+  expect(await page.locator(TRAIL).count()).toBeGreaterThan(0);
+});
+
 test('a finger dragged from the badge leaves the trail; the badge holds the page still', async ({ page, isMobile }) => {
   test.skip(!isMobile, 'touch');
   await box(page, 'a');

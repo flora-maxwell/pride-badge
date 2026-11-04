@@ -63,6 +63,7 @@ declare module 'react' {
 | `lang="de"` | German. Without it, the badge follows the page (`<html lang>`), else English. |
 | `effects="off"` | No flags, no trail, no change of sentence: a calm button. |
 | `trail="off"` | No rainbow trail at all, neither from the mouse nor from a finger. Flags still fly and the sentence still changes. |
+| `trail-reach="120"` | How far from the badge, in pixels, the mouse starts the rainbow trail. Default 60, from 0 (only on the badge) to 300. |
 | `touch-trail="off"` | On phones, a finger that starts on the badge leaves a rainbow trail, and the page doesn't scroll while it does. Switch it off if that gets in the way. |
 | `shadow="off"` | No shadow (the light contour stays). |
 

@@ -15,6 +15,8 @@ export interface PrideBadgeAttributes {
   effects?: 'off';
   /** No rainbow trail at all, from mouse or finger. */
   trail?: 'off';
+  /** How far from the badge, in px, the mouse starts the trail: 0–300, default 60. */
+  'trail-reach'?: number | string;
   /** No trail from a finger only; the page scrolls as usual. */
   'touch-trail'?: 'off';
   shadow?: 'off';

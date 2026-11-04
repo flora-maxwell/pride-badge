@@ -19,6 +19,14 @@ export type Tune = typeof THROW;
 export const FLAGS = ['🏳️‍🌈', '🏳️‍⚧️'];
 /** px around the badge where the mouse leaves the trail (Flo: 40 → 60). */
 export const NEAR = 60;
+/** The most `trail-reach` allows, so a trail never follows the mouse across the whole page. */
+export const MAX_REACH = 300;
+
+/** `trail-reach="120"` → 120 px; missing or not a number → NEAR; held to 0–MAX_REACH. */
+export function parseReach(value: string | null): number {
+  const n = parseFloat(value ?? '');
+  return Number.isNaN(n) ? NEAR : Math.min(MAX_REACH, Math.max(0, n));
+}
 export const RAINBOW = ['#e40303', '#ff8c00', '#ffed00', '#008026', '#004dff', '#750787'];
 
 let layer: HTMLElement | null = null;
