@@ -1,0 +1,50 @@
+{
+  "name": "pride-badge",
+  "version": "1.0.0",
+  "description": "A small pride badge for your website: “Stronger together.” with the intersex-inclusive Progress Pride flag. A click throws flags.",
+  "license": "MIT",
+  "author": "Flora Maxwell (https://floramaxwell.de)",
+  "type": "module",
+  "main": "dist/pride-badge.mjs",
+  "module": "dist/pride-badge.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/pride-badge.d.ts",
+      "default": "./dist/pride-badge.mjs"
+    },
+    "./pride-badge.js": "./dist/pride-badge.js"
+  },
+  "unpkg": "dist/pride-badge.js",
+  "jsdelivr": "dist/pride-badge.js",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": true,
+  "keywords": [
+    "pride",
+    "lgbtq",
+    "badge",
+    "web-component",
+    "custom-element"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "demo:build": "npm run build && rm -rf demo/dist && cp -R dist demo/dist",
+    "demo": "npm run demo:build && npx esbuild --servedir=demo --serve=4401",
+    "test:unit": "npm run build && node --test \"test/*.test.ts\"",
+    "test:e2e": "npm run build && playwright test",
+    "test": "npm run test:unit && playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flora-maxwell/pride-badge.git"
+  },
+  "homepage": "https://flora-maxwell.github.io/pride-badge/",
+  "bugs": "https://github.com/flora-maxwell/pride-badge/issues",
+  "types": "dist/pride-badge.d.ts"
+}

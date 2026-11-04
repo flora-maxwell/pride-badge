@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>effects</title>
+<script src="/dist/pride-badge.js" defer></script>
+<style>
+  body { font: 16px/1.4 system-ui, sans-serif; margin: 0; padding: 120px 140px 1200px; }
+  .row { margin: 0 0 160px; }
+  #box { transform: translate(200px, 40px) scale(.8); transform-origin: 0 0; overflow: auto; height: 200px; width: 400px; border: 1px dashed #ccc; }
+  #box .inner { height: 600px; padding-top: 110px; }
+</style></head>
+<body>
+  <div class="row"><pride-badge id="a"></pride-badge></div>
+  <div class="row"><pride-badge id="b"></pride-badge></div>
+  <div class="row"><pride-badge id="off" effects="off"></pride-badge></div>
+  <div class="row"><pride-badge id="notouch" touch-trail="off"></pride-badge></div>
+  <div class="row"><pride-badge id="notrail" trail="off"></pride-badge></div>
+  <div id="box"><div class="inner"><pride-badge id="boxed"></pride-badge></div></div>
+</body>
+</html>

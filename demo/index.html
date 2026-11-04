@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pride-badge</title>
+<meta name="description" content="A small pride badge for your website. A click throws flags.">
+<script src="dist/pride-badge.js" defer></script>
+<style>
+  :root { color-scheme: light; --ink: #18181b; --soft: #52525b; --line: #e4e4e7; --paper: #f4f4f5; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 72px 16px 96px; }
+  h1 { font-size: 2.25rem; line-height: 1.15; margin: 0 0 12px; font-weight: 600; letter-spacing: -.01em; }
+  h2 { font-size: 1.125rem; margin: 64px 0 8px; font-weight: 600; }
+  p { margin: 0 0 16px; color: var(--soft); }
+  .hero { display: flex; justify-content: center; padding: 56px 16px; margin: 32px 0 0; border-radius: 20px; background: #fff; border: 1px solid var(--line); }
+  .stage { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; padding: 28px 24px; margin: 16px 0 12px; border-radius: 16px; background: #fff; border: 1px solid var(--line); }
+  /* Quieter: far apart, so the 60px mouse trail of one badge never reaches the next. */
+  .stage.spread { flex-direction: column; align-items: flex-start; gap: 0; padding: 0 24px; }
+  .stage.spread .item { padding: 48px 0; width: 100%; }
+  .stage.spread .item + .item { border-top: 1px solid var(--line); }
+  .stage.spread .label { display: block; margin: 0 0 12px; font-size: 14px; color: var(--soft); }
+  .stage.dark { background: #0f0f11; border-color: #0f0f11; }
+  .stage.dark pride-badge {
+    --pride-badge-bg: #27272a; --pride-badge-color: #fafafa;
+    --pride-badge-contour: 0 0 0 1px rgb(255 255 255 / .16);
+    --pride-badge-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 4px 14px rgb(0 0 0 / .35);
+    --pride-badge-focus-ring: 2px solid #fafafa; --pride-badge-focus-glow: 0 0 0 5px #0f0f11;
+  }
+  pre { margin: 0 0 8px; padding: 16px; overflow-x: auto; border-radius: 12px; background: #18181b; color: #f4f4f5; font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+  a { color: inherit; }
+  footer { margin-top: 80px; font-size: 14px; color: var(--soft); }
+</style>
+</head>
+<body>
+<main>
+  <h1>pride-badge</h1>
+  <p>A small pride badge for your website. Click it: pride flags fly and the next sentence rolls in. Move your mouse close for a rainbow trail.</p>
+
+  <div class="hero"><pride-badge style="font-size: 20px"></pride-badge></div>
+
+  <h2>Add it to your site</h2>
+  <p>Two lines, from the CDN:</p>
+  <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/pride-badge@1/dist/pride-badge.js" defer&gt;&lt;/script&gt;
+
+&lt;pride-badge&gt;&lt;/pride-badge&gt;</code></pre>
+  <p>Or host the file yourself (no third party sees your visitors), or <code>npm install pride-badge</code>. All the details are in the <a href="https://github.com/flora-maxwell/pride-badge#readme">README</a>.</p>
+
+  <h2>Pick your sentences</h2>
+  <p><code>texts</code> sets which sentences take turns, in this order. One sentence means no change, only flags.</p>
+  <div class="stage">
+    <pride-badge texts="safe-with-me love-is-love"></pride-badge>
+    <pride-badge texts="you-belong"></pride-badge>
+  </div>
+  <pre><code>&lt;pride-badge texts="safe-with-me love-is-love"&gt;&lt;/pride-badge&gt;
+&lt;pride-badge texts="you-belong"&gt;&lt;/pride-badge&gt;</code></pre>
+
+  <h2>Auf Deutsch</h2>
+  <p><code>lang="de"</code>, or nothing at all if your page is already German.</p>
+  <div class="stage"><pride-badge lang="de"></pride-badge></div>
+  <pre><code>&lt;pride-badge lang="de"&gt;&lt;/pride-badge&gt;</code></pre>
+
+  <h2>Dark</h2>
+  <p>Colours, contour and shadow come from CSS custom properties.</p>
+  <div class="stage dark"><pride-badge></pride-badge></div>
+  <pre><code>pride-badge {
+  --pride-badge-bg: #27272a;
+  --pride-badge-color: #fafafa;
+  --pride-badge-contour: 0 0 0 1px rgb(255 255 255 / .16);
+  --pride-badge-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 4px 14px rgb(0 0 0 / .35);
+}</code></pre>
+
+  <h2>Quieter</h2>
+  <p><code>shadow="off"</code> drops the shadow, <code>trail="off"</code> leaves no rainbow trail behind the mouse or a finger, <code>touch-trail="off"</code> keeps it for the mouse only and lets the page scroll when a finger starts on the badge, <code>effects="off"</code> makes it a calm button.</p>
+  <div class="stage spread">
+    <div class="item"><code class="label">shadow="off"</code><pride-badge shadow="off"></pride-badge></div>
+    <div class="item"><code class="label">trail="off"</code><pride-badge trail="off"></pride-badge></div>
+    <div class="item"><code class="label">touch-trail="off"</code><pride-badge touch-trail="off"></pride-badge></div>
+    <div class="item"><code class="label">effects="off"</code><pride-badge effects="off"></pride-badge></div>
+  </div>
+  <pre><code>&lt;pride-badge shadow="off"&gt;&lt;/pride-badge&gt;
+&lt;pride-badge trail="off"&gt;&lt;/pride-badge&gt;
+&lt;pride-badge touch-trail="off"&gt;&lt;/pride-badge&gt;
+&lt;pride-badge effects="off"&gt;&lt;/pride-badge&gt;</code></pre>
+
+  <footer>
+    Made by <a href="https://floramaxwell.de">Flora Maxwell</a>. Code MIT. Flag: intersex-inclusive Progress Pride flag by Valentino Vecchietti, graphic CC0 (Wikimedia Commons).
+    No cookies, no tracking: the badge stores and sends nothing.
+  </footer>
+</main>
+</body>
+</html>
