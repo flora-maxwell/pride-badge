@@ -1,5 +1,7 @@
 # pride-badge
 
+![pride-badge: a white badge reading “Stronger together.” next to the intersex-inclusive Progress Pride flag, with rainbow and trans flags flying around it after a click](https://raw.githubusercontent.com/flora-maxwell/pride-badge/main/.github/readme-banner.png)
+
 A small pride badge for your website: **“Stronger together.”** next to the intersex-inclusive Progress Pride flag. Click it and pride flags fly; move the mouse near it and it leaves a short rainbow trail. One file, no dependencies, works with plain HTML, WordPress, Webflow, React, Vue and the rest.
 
 **Demo:** https://flora-maxwell.github.io/pride-badge/
